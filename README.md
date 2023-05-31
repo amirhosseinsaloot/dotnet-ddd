@@ -70,14 +70,12 @@ They consist of:
 - **API Controllers**: Implement RESTful APIs for client-server communication.
 
 
-## Contributing
-
-Contributions to this repository are welcome! If you would like to contribute, please follow the guidelines outlined in the [CONTRIBUTING.md](CONTRIBUTING.md) file.
-
 ## License
 
 This project is licensed under the [MIT License](LICENSE). Feel free to use, modify, and distribute this codebase according to the terms and conditions of the license.
 
 ---
 
-I hope this repository serves as a practical resource for understanding and implementing Domain-Driven Design (DDD) with .NET. If you have any questions or feedback, please don't hesitate to reach out. Happy coding!
+I hope this repository serves as a practical resource for understanding and implementing Domain-Driven Design (DDD) with .NET. If you have any questions or feedback, please don't hesitate to reach out. 
+
+Happy coding!
