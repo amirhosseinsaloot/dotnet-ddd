@@ -13,7 +13,7 @@ public static class ServiceCollectionExtensions
     {
         services.AddSwaggerGen(c =>
         {
-            c.SwaggerDoc("v1", new OpenApiInfo { Title = "Commission Api", Version = "V1" });
+            c.SwaggerDoc("v1", new OpenApiInfo { Title = "Api", Version = "V1" });
         });
     }
 
@@ -36,7 +36,6 @@ public static class ServiceCollectionExtensions
 
     public static void RegisterDependencies(this IServiceCollection services)
     {
-        services.AddScoped(typeof(IReadRepository<>), typeof(ReadRepository<>));
-        services.AddScoped(typeof(IWriteRepository<>), typeof(WriteRepository<>));
+        services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
     }
 }
