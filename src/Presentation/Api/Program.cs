@@ -62,7 +62,7 @@ void ConfigureServices(IServiceCollection services)
     services.AddControllers();
     services.AddFluentValidationAutoValidation()
             .AddFluentValidationClientsideAdapters()
-            .AddValidatorsFromAssemblyContaining<Program>();
+            .AddValidatorsFromAssemblyContaining<Api.Program>();
 }
 
 void ConfigurePipeline(IApplicationBuilder app)
@@ -89,4 +89,7 @@ void ConfigurePipeline(IApplicationBuilder app)
 
 
 // Make the implicit Program class public so test projects can access it
-public partial class Program { }
+namespace Api
+{
+    public partial class Program { }
+}

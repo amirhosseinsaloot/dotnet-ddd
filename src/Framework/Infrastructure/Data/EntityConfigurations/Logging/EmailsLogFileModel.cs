@@ -1,13 +1,11 @@
 ﻿using Core.Entities.Logging;
 
-namespace Infrastructure.Data.Configurations.Logging;
+namespace Infrastructure.Data.EntityConfigurations.Logging;
 
 public class EmailsLogFileModelConfiguration : IEntityTypeConfiguration<EmailsLogFileModel>
 {
     public void Configure(EntityTypeBuilder<EmailsLogFileModel> builder)
     {
-        builder.HasKey(p => new { p.EmailsLogId, p.FileModelId });
-
         builder.HasIndex(p => p.FileModelId).IsUnique();
 
         builder.HasOne(p => p.EmailsLog)

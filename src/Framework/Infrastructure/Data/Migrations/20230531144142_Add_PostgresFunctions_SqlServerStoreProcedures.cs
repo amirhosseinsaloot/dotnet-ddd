@@ -2,15 +2,15 @@
 
 #nullable disable
 
-namespace Infrastructure.Data.Migrations;
-
-public partial class Add_PostgresFunctions_SqlServerStoreProcedures : Migration
+namespace Infrastructure.Data.Migrations
 {
-    protected override void Up(MigrationBuilder migrationBuilder)
+    public partial class Add_PostgresFunctions_SqlServerStoreProcedures : Migration
     {
-        if (ActiveProvider == "Npgsql.EntityFrameworkCore.PostgreSQL")
+        protected override void Up(MigrationBuilder migrationBuilder)
         {
-            var get_child_teams = @"DROP FUNCTION IF EXISTS get_child_teams(INT);
+            if (ActiveProvider == "Npgsql.EntityFrameworkCore.PostgreSQL")
+            {
+                var get_child_teams = @"DROP FUNCTION IF EXISTS get_child_teams(INT);
 
 										CREATE OR REPLACE FUNCTION get_child_teams(root_team_id INTEGER)
 
@@ -45,9 +45,9 @@ public partial class Add_PostgresFunctions_SqlServerStoreProcedures : Migration
 												INNER JOIN team ON cte.id = team.id;
 		
 										END;$$";
-            migrationBuilder.Sql(get_child_teams);
+                migrationBuilder.Sql(get_child_teams);
 
-            var get_root_team = @"DROP FUNCTION IF EXISTS get_root_team(INT);
+                var get_root_team = @"DROP FUNCTION IF EXISTS get_root_team(INT);
 
 									CREATE OR REPLACE FUNCTION get_root_team(child_team_id INTEGER)
 
@@ -84,9 +84,9 @@ public partial class Add_PostgresFunctions_SqlServerStoreProcedures : Migration
 											WHERE cte.parent_team_id IS NULL;
 		
 									END;$$";
-            migrationBuilder.Sql(get_root_team);
+                migrationBuilder.Sql(get_root_team);
 
-            var get_root_team_by_user = @"DROP FUNCTION IF EXISTS get_root_team_by_user(INT);
+                var get_root_team_by_user = @"DROP FUNCTION IF EXISTS get_root_team_by_user(INT);
 
 											CREATE OR REPLACE FUNCTION get_root_team_by_user(input_user_id INTEGER)
 
@@ -126,9 +126,9 @@ public partial class Add_PostgresFunctions_SqlServerStoreProcedures : Migration
 													WHERE cte.parent_team_id IS NULL;
 		
 											END;$$";
-            migrationBuilder.Sql(get_root_team_by_user);
+                migrationBuilder.Sql(get_root_team_by_user);
 
-            var get_tenant_by_user = @"DROP FUNCTION IF EXISTS get_tenant_by_user(INT);
+                var get_tenant_by_user = @"DROP FUNCTION IF EXISTS get_tenant_by_user(INT);
 
 										CREATE OR REPLACE FUNCTION get_tenant_by_user(input_user_id INTEGER)
 
@@ -162,12 +162,12 @@ public partial class Add_PostgresFunctions_SqlServerStoreProcedures : Migration
 												WHERE cte.parent_team_id IS NULL;
 		
 										END;$$";
-            migrationBuilder.Sql(get_tenant_by_user);
-        }
+                migrationBuilder.Sql(get_tenant_by_user);
+            }
 
-        if (ActiveProvider == "Microsoft.EntityFrameworkCore.SqlServer")
-        {
-            var GetChildTeams = @"DROP  PROCEDURE IF EXISTS [dbo].[GetChildTeams]
+            if (ActiveProvider == "Microsoft.EntityFrameworkCore.SqlServer")
+            {
+                var GetChildTeams = @"DROP  PROCEDURE IF EXISTS [dbo].[GetChildTeams]
 									GO
 									CREATE PROCEDURE GetChildTeams @RootTeamId INT
 									AS
@@ -191,9 +191,9 @@ public partial class Add_PostgresFunctions_SqlServerStoreProcedures : Migration
 										OPTION(MAXRECURSION 0)
 
 									END";
-            migrationBuilder.Sql(GetChildTeams);
+                migrationBuilder.Sql(GetChildTeams);
 
-            var GetRootTeam = @"DROP  PROCEDURE IF EXISTS [dbo].[GetRootTeam]
+                var GetRootTeam = @"DROP  PROCEDURE IF EXISTS [dbo].[GetRootTeam]
 								  GO
 								  CREATE PROCEDURE GetRootTeam @ChildTeamId INT
 								  AS
@@ -218,9 +218,9 @@ public partial class Add_PostgresFunctions_SqlServerStoreProcedures : Migration
 								  	   OPTION(MAXRECURSION 0)
 								  
 								  END";
-            migrationBuilder.Sql(GetRootTeam);
+                migrationBuilder.Sql(GetRootTeam);
 
-            var GetRootTeamByUser = @"DROP  PROCEDURE IF EXISTS [dbo].[GetRootTeamByUser]
+                var GetRootTeamByUser = @"DROP  PROCEDURE IF EXISTS [dbo].[GetRootTeamByUser]
 										GO
 										CREATE PROCEDURE GetRootTeamByUser @InputUserId INT
 										AS
@@ -246,9 +246,9 @@ public partial class Add_PostgresFunctions_SqlServerStoreProcedures : Migration
 											OPTION(MAXRECURSION 0)
 
 										END";
-            migrationBuilder.Sql(GetRootTeamByUser);
+                migrationBuilder.Sql(GetRootTeamByUser);
 
-            var GetTenantByUser = @"DROP  PROCEDURE IF EXISTS [dbo].[GetTenantByUser]
+                var GetTenantByUser = @"DROP  PROCEDURE IF EXISTS [dbo].[GetTenantByUser]
 									  GO
 									  CREATE PROCEDURE GetTenantByUser @InputUserId INT
 									  AS
@@ -274,40 +274,41 @@ public partial class Add_PostgresFunctions_SqlServerStoreProcedures : Migration
 									     	OPTION(MAXRECURSION 0)
 									  
 									  END";
-            migrationBuilder.Sql(GetTenantByUser);
-        }
-    }
-
-    protected override void Down(MigrationBuilder migrationBuilder)
-    {
-        if (ActiveProvider == "Npgsql.EntityFrameworkCore.PostgreSQL")
-        {
-            var get_child_teams = @"DROP FUNCTION IF EXISTS get_child_teams(INT)";
-            migrationBuilder.Sql(get_child_teams);
-
-            var get_root_team = @"DROP FUNCTION IF EXISTS get_root_team(INT);";
-            migrationBuilder.Sql(get_root_team);
-
-            var get_root_team_by_user = @"DROP FUNCTION IF EXISTS get_root_team_by_user(INT);";
-            migrationBuilder.Sql(get_root_team_by_user);
-
-            var get_tenant_by_user = @"DROP FUNCTION IF EXISTS get_tenant_by_user(INT);";
-            migrationBuilder.Sql(get_tenant_by_user);
+                migrationBuilder.Sql(GetTenantByUser);
+            }
         }
 
-        if (ActiveProvider == "Microsoft.EntityFrameworkCore.SqlServer")
+        protected override void Down(MigrationBuilder migrationBuilder)
         {
-            var GetChildTeams = @"DROP  PROCEDURE IF EXISTS [dbo].[GetChildTeams]";
-            migrationBuilder.Sql(GetChildTeams);
+            if (ActiveProvider == "Npgsql.EntityFrameworkCore.PostgreSQL")
+            {
+                var get_child_teams = @"DROP FUNCTION IF EXISTS get_child_teams(INT)";
+                migrationBuilder.Sql(get_child_teams);
 
-            var GetRootTeam = @"DROP  PROCEDURE IF EXISTS [dbo].[GetRootTeam]";
-            migrationBuilder.Sql(GetRootTeam);
+                var get_root_team = @"DROP FUNCTION IF EXISTS get_root_team(INT);";
+                migrationBuilder.Sql(get_root_team);
 
-            var GetRootTeamByUser = @"DROP  PROCEDURE IF EXISTS [dbo].[GetRootTeamByUser]";
-            migrationBuilder.Sql(GetRootTeamByUser);
+                var get_root_team_by_user = @"DROP FUNCTION IF EXISTS get_root_team_by_user(INT);";
+                migrationBuilder.Sql(get_root_team_by_user);
 
-            var GetTenantByUser = @"DROP  PROCEDURE IF EXISTS [dbo].[GetTenantByUser]";
-            migrationBuilder.Sql(GetTenantByUser);
+                var get_tenant_by_user = @"DROP FUNCTION IF EXISTS get_tenant_by_user(INT);";
+                migrationBuilder.Sql(get_tenant_by_user);
+            }
+
+            if (ActiveProvider == "Microsoft.EntityFrameworkCore.SqlServer")
+            {
+                var GetChildTeams = @"DROP  PROCEDURE IF EXISTS [dbo].[GetChildTeams]";
+                migrationBuilder.Sql(GetChildTeams);
+
+                var GetRootTeam = @"DROP  PROCEDURE IF EXISTS [dbo].[GetRootTeam]";
+                migrationBuilder.Sql(GetRootTeam);
+
+                var GetRootTeamByUser = @"DROP  PROCEDURE IF EXISTS [dbo].[GetRootTeamByUser]";
+                migrationBuilder.Sql(GetRootTeamByUser);
+
+                var GetTenantByUser = @"DROP  PROCEDURE IF EXISTS [dbo].[GetTenantByUser]";
+                migrationBuilder.Sql(GetTenantByUser);
+            }
         }
     }
 }

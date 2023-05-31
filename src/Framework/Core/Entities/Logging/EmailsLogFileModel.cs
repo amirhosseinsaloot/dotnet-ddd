@@ -2,8 +2,10 @@
 
 namespace Core.Entities.Logging;
 
-public class EmailsLogFileModel : IEntity
+public class EmailsLogFileModel : IBaseEntity
 {
+    public int Id { get; set; }
+    
     public int EmailsLogId { get; set; }
 
     public int FileModelId { get; set; }

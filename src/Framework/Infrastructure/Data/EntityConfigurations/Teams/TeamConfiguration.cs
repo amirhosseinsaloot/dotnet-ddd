@@ -1,4 +1,4 @@
-﻿namespace Infrastructure.Data.Configurations.Teams;
+﻿namespace Infrastructure.Data.EntityConfigurations.Teams;
 
 public class TeamConfiguration : IEntityTypeConfiguration<Team>
 {

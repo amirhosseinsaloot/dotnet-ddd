@@ -17,7 +17,7 @@ namespace Infrastructure.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.1")
+                .HasAnnotation("ProductVersion", "6.0.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -36,39 +36,28 @@ namespace Infrastructure.Data.Migrations
                         .HasColumnName("created_on");
 
                     b.Property<string>("Description")
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)")
-                        .HasColumnName("description");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
                         .HasColumnType("text")
-                        .HasColumnName("discriminator");
+                        .HasColumnName("description");
 
                     b.Property<string>("Extension")
                         .IsRequired()
-                        .HasMaxLength(5)
-                        .HasColumnType("character varying(5)")
+                        .HasColumnType("text")
                         .HasColumnName("extension");
 
                     b.Property<string>("FileType")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("character varying(30)")
+                        .HasColumnType("text")
                         .HasColumnName("file_type");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
+                        .HasColumnType("text")
                         .HasColumnName("name");
 
                     b.HasKey("Id")
                         .HasName("pk_file_model");
 
                     b.ToTable("file_model");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("FileModel");
                 });
 
             modelBuilder.Entity("Core.Entities.Identity.Role", b =>
@@ -91,14 +80,12 @@ namespace Infrastructure.Data.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
+                        .HasColumnType("text")
                         .HasColumnName("description");
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)")
                         .HasColumnName("name");
 
                     b.Property<string>("NormalizedName")
@@ -131,16 +118,11 @@ namespace Infrastructure.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
+                        .HasColumnType("text")
                         .HasColumnName("name");
 
                     b.HasKey("Id")
                         .HasName("pk_tenant");
-
-                    b.HasIndex("Name")
-                        .IsUnique()
-                        .HasDatabaseName("ix_tenant_name");
 
                     b.ToTable("tenant");
                 });
@@ -159,7 +141,7 @@ namespace Infrastructure.Data.Migrations
                         .HasColumnName("access_failed_count");
 
                     b.Property<DateTime>("Birthdate")
-                        .HasColumnType("date")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("birthdate");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -172,9 +154,8 @@ namespace Infrastructure.Data.Migrations
                         .HasColumnName("created_on");
 
                     b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(320)
-                        .HasColumnType("character varying(320)")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)")
                         .HasColumnName("email");
 
                     b.Property<bool>("EmailConfirmed")
@@ -183,8 +164,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.Property<string>("Firstname")
                         .IsRequired()
-                        .HasMaxLength(35)
-                        .HasColumnType("character varying(35)")
+                        .HasColumnType("text")
                         .HasColumnName("firstname");
 
                     b.Property<byte>("Gender")
@@ -192,9 +172,7 @@ namespace Infrastructure.Data.Migrations
                         .HasColumnName("gender");
 
                     b.Property<bool>("IsActive")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("boolean")
-                        .HasDefaultValue(true)
                         .HasColumnName("is_active");
 
                     b.Property<DateTime?>("LastLoginDate")
@@ -203,8 +181,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.Property<string>("Lastname")
                         .IsRequired()
-                        .HasMaxLength(35)
-                        .HasColumnType("character varying(35)")
+                        .HasColumnType("text")
                         .HasColumnName("lastname");
 
                     b.Property<bool>("LockoutEnabled")
@@ -242,8 +219,7 @@ namespace Infrastructure.Data.Migrations
                         .HasColumnName("profile_picture_id");
 
                     b.Property<string>("RefreshToken")
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
+                        .HasColumnType("text")
                         .HasColumnName("refresh_token");
 
                     b.Property<DateTime?>("RefreshTokenExpirationTime")
@@ -263,9 +239,8 @@ namespace Infrastructure.Data.Migrations
                         .HasColumnName("two_factor_enabled");
 
                     b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("character varying(40)")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)")
                         .HasColumnName("user_name");
 
                     b.HasKey("Id")
@@ -302,11 +277,25 @@ namespace Infrastructure.Data.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_on");
 
+                    b.Property<int>("RoleId1")
+                        .HasColumnType("integer")
+                        .HasColumnName("role_id1");
+
+                    b.Property<int>("UserId1")
+                        .HasColumnType("integer")
+                        .HasColumnName("user_id1");
+
                     b.HasKey("UserId", "RoleId")
                         .HasName("pk_asp_net_user_roles");
 
                     b.HasIndex("RoleId")
                         .HasDatabaseName("ix_asp_net_user_roles_role_id");
+
+                    b.HasIndex("RoleId1")
+                        .HasDatabaseName("ix_asp_net_user_roles_role_id1");
+
+                    b.HasIndex("UserId1")
+                        .HasDatabaseName("ix_asp_net_user_roles_user_id1");
 
                     b.ToTable("asp_net_user_roles", (string)null);
                 });
@@ -335,8 +324,7 @@ namespace Infrastructure.Data.Migrations
                         .HasColumnName("subject");
 
                     b.Property<string>("ToEmail")
-                        .HasMaxLength(320)
-                        .HasColumnType("character varying(320)")
+                        .HasColumnType("text")
                         .HasColumnName("to_email");
 
                     b.Property<int?>("ToUserId")
@@ -356,6 +344,13 @@ namespace Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Core.Entities.Logging.EmailsLogFileModel", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
                     b.Property<int>("EmailsLogId")
                         .HasColumnType("integer")
                         .HasColumnName("emails_log_id");
@@ -364,11 +359,13 @@ namespace Infrastructure.Data.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("file_model_id");
 
-                    b.HasKey("EmailsLogId", "FileModelId")
+                    b.HasKey("Id")
                         .HasName("pk_emails_log_file_model");
 
+                    b.HasIndex("EmailsLogId")
+                        .HasDatabaseName("ix_emails_log_file_model_emails_log_id");
+
                     b.HasIndex("FileModelId")
-                        .IsUnique()
                         .HasDatabaseName("ix_emails_log_file_model_file_model_id");
 
                     b.ToTable("emails_log_file_model");
@@ -389,19 +386,21 @@ namespace Infrastructure.Data.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
+                        .HasColumnType("text")
                         .HasColumnName("description");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
+                        .HasColumnType("text")
                         .HasColumnName("name");
 
                     b.Property<int?>("ParentId")
                         .HasColumnType("integer")
                         .HasColumnName("parent_id");
+
+                    b.Property<int?>("ParentTeamId")
+                        .HasColumnType("integer")
+                        .HasColumnName("parent_team_id");
 
                     b.Property<int?>("TenantId")
                         .HasColumnType("integer")
@@ -410,8 +409,8 @@ namespace Infrastructure.Data.Migrations
                     b.HasKey("Id")
                         .HasName("pk_team");
 
-                    b.HasIndex("ParentId")
-                        .HasDatabaseName("ix_team_parent_id");
+                    b.HasIndex("ParentTeamId")
+                        .HasDatabaseName("ix_team_parent_team_id");
 
                     b.HasIndex("TenantId")
                         .HasDatabaseName("ix_team_tenant_id");
@@ -436,8 +435,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("character varying(500)")
+                        .HasColumnType("text")
                         .HasColumnName("description");
 
                     b.Property<int>("IssuerUserId")
@@ -458,8 +456,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("character varying(30)")
+                        .HasColumnType("text")
                         .HasColumnName("title");
 
                     b.HasKey("Id")
@@ -496,8 +493,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("character varying(500)")
+                        .HasColumnType("text")
                         .HasColumnName("description");
 
                     b.Property<int?>("ParentTicketProcessId")
@@ -514,15 +510,15 @@ namespace Infrastructure.Data.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("character varying(15)")
+                        .HasColumnType("text")
                         .HasColumnName("title");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("integer")
+                        .HasColumnName("user_id");
 
                     b.HasKey("Id")
                         .HasName("pk_ticket_process");
-
-                    b.HasIndex("AssignedUserId")
-                        .HasDatabaseName("ix_ticket_process_assigned_user_id");
 
                     b.HasIndex("ParentTicketProcessId")
                         .HasDatabaseName("ix_ticket_process_parent_ticket_process_id");
@@ -532,6 +528,9 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasIndex("TicketId")
                         .HasDatabaseName("ix_ticket_process_ticket_id");
+
+                    b.HasIndex("UserId")
+                        .HasDatabaseName("ix_ticket_process_user_id");
 
                     b.ToTable("ticket_process");
                 });
@@ -551,8 +550,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.Property<string>("Type")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("character varying(30)")
+                        .HasColumnType("text")
                         .HasColumnName("type");
 
                     b.HasKey("Id")
@@ -672,33 +670,6 @@ namespace Infrastructure.Data.Migrations
                     b.ToTable("asp_net_user_tokens", (string)null);
                 });
 
-            modelBuilder.Entity("Core.Entities.Files.FileOnDatabase", b =>
-                {
-                    b.HasBaseType("Core.Entities.Files.FileModel");
-
-                    b.Property<byte[]>("Data")
-                        .HasColumnType("bytea")
-                        .HasColumnName("data");
-
-                    b.ToTable("file_model");
-
-                    b.HasDiscriminator().HasValue("FileOnDatabase");
-                });
-
-            modelBuilder.Entity("Core.Entities.Files.FileOnFileSystem", b =>
-                {
-                    b.HasBaseType("Core.Entities.Files.FileModel");
-
-                    b.Property<string>("FilePath")
-                        .HasMaxLength(500)
-                        .HasColumnType("character varying(500)")
-                        .HasColumnName("file_path");
-
-                    b.ToTable("file_model");
-
-                    b.HasDiscriminator().HasValue("FileOnFileSystem");
-                });
-
             modelBuilder.Entity("Core.Entities.Identity.User", b =>
                 {
                     b.HasOne("Core.Entities.Files.FileModel", "ProfilePicture")
@@ -720,19 +691,33 @@ namespace Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Core.Entities.Identity.UserRole", b =>
                 {
-                    b.HasOne("Core.Entities.Identity.Role", "Role")
-                        .WithMany("UserRoles")
+                    b.HasOne("Core.Entities.Identity.Role", null)
+                        .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired()
                         .HasConstraintName("fk_asp_net_user_roles_asp_net_roles_role_id");
 
-                    b.HasOne("Core.Entities.Identity.User", "User")
+                    b.HasOne("Core.Entities.Identity.Role", "Role")
                         .WithMany("UserRoles")
+                        .HasForeignKey("RoleId1")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired()
+                        .HasConstraintName("fk_asp_net_user_roles_asp_net_roles_role_id1");
+
+                    b.HasOne("Core.Entities.Identity.User", null)
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired()
                         .HasConstraintName("fk_asp_net_user_roles_asp_net_users_user_id");
+
+                    b.HasOne("Core.Entities.Identity.User", "User")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("UserId1")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired()
+                        .HasConstraintName("fk_asp_net_user_roles_asp_net_users_user_id1");
 
                     b.Navigation("Role");
 
@@ -774,8 +759,8 @@ namespace Infrastructure.Data.Migrations
                 {
                     b.HasOne("Core.Entities.Teams.Team", "ParentTeam")
                         .WithMany("ChildTeams")
-                        .HasForeignKey("ParentId")
-                        .HasConstraintName("fk_team_team_parent_id");
+                        .HasForeignKey("ParentTeamId")
+                        .HasConstraintName("fk_team_team_parent_team_id");
 
                     b.HasOne("Core.Entities.Identity.Tenant", "Tenant")
                         .WithMany("Teams")
@@ -819,11 +804,6 @@ namespace Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Core.Entities.Tickets.TicketProcess", b =>
                 {
-                    b.HasOne("Core.Entities.Identity.User", "User")
-                        .WithMany("TicketProcesses")
-                        .HasForeignKey("AssignedUserId")
-                        .HasConstraintName("fk_ticket_process_asp_net_users_assigned_user_id");
-
                     b.HasOne("Core.Entities.Tickets.TicketProcess", "ParentTicketProcess")
                         .WithMany("ChildTicketProcesses")
                         .HasForeignKey("ParentTicketProcessId")
@@ -842,6 +822,11 @@ namespace Infrastructure.Data.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired()
                         .HasConstraintName("fk_ticket_process_ticket_ticket_id");
+
+                    b.HasOne("Core.Entities.Identity.User", "User")
+                        .WithMany("TicketProcesses")
+                        .HasForeignKey("UserId")
+                        .HasConstraintName("fk_ticket_process_asp_net_users_user_id");
 
                     b.Navigation("ParentTicketProcess");
 

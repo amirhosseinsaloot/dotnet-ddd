@@ -1,6 +1,6 @@
 ﻿using Core.Entities.Logging;
 
-namespace Infrastructure.Data.Configurations.Logging;
+namespace Infrastructure.Data.EntityConfigurations.Logging;
 
 public class EmailsLogConfiguration : IEntityTypeConfiguration<EmailsLog>
 {

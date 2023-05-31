@@ -1,6 +1,6 @@
 ﻿using Core.Entities.Tickets;
 
-namespace Infrastructure.Data.Configurations.Tickets;
+namespace Infrastructure.Data.EntityConfigurations.Tickets;
 
 public class TicketConfiguration : IEntityTypeConfiguration<Ticket>
 {

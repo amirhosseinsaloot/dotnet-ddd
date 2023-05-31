@@ -1,6 +1,6 @@
 ﻿using Core.Entities.Files;
 
-namespace Infrastructure.Data.Configurations.Files;
+namespace Infrastructure.Data.EntityConfigurations.Files;
 
 public class FileModelConfiguration : IEntityTypeConfiguration<FileModel>
 {

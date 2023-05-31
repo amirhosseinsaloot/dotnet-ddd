@@ -1,6 +1,6 @@
 ﻿using Core.Entities.Identity;
 
-namespace Infrastructure.Data.Configurations.Identity;
+namespace Infrastructure.Data.EntityConfigurations.Identity;
 
 public class RoleConfiguration : IEntityTypeConfiguration<Role>
 {
