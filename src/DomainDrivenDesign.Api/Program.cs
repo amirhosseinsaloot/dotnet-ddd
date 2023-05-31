@@ -3,7 +3,7 @@ using CorrelationId.DependencyInjection;
 using DomainDrivenDesign.Api;
 using DomainDrivenDesign.Api.Extensions;
 using DomainDrivenDesign.Api.Middlewares;
-using DomainDrivenDesign.Domain.Setting;
+using DomainDrivenDesign.Infrastructure.Setting;
 using FluentValidation.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);

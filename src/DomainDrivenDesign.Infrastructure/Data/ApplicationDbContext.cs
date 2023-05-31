@@ -1,4 +1,5 @@
-﻿using Pluralize.NET;
+﻿using DomainDrivenDesign.Infrastructure.Setting;
+using Pluralize.NET;
 
 namespace DomainDrivenDesign.Infrastructure.Data;
 

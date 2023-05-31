@@ -1,7 +1,7 @@
 ﻿using DomainDrivenDesign.Domain.Interfaces.Repositories;
-using DomainDrivenDesign.Domain.Setting;
 using DomainDrivenDesign.Infrastructure.Data;
 using DomainDrivenDesign.Infrastructure.Data.Repository;
+using DomainDrivenDesign.Infrastructure.Setting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 

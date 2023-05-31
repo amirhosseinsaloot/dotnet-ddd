@@ -1,4 +1,4 @@
-﻿namespace DomainDrivenDesign.Domain.Setting;
+﻿namespace DomainDrivenDesign.Infrastructure.Setting;
 
 public sealed record class DatabaseSettings
 {
