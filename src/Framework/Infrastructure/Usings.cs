@@ -1,0 +1,9 @@
+﻿global using AutoMapper;
+global using Core.Entities.Teams;
+global using Core.Enums;
+global using Core.Exceptions;
+global using Core.Interfaces.DataProviders;
+global using Core.Interfaces.Dtos;
+global using Microsoft.AspNetCore.Http;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.EntityFrameworkCore.Metadata.Builders;
