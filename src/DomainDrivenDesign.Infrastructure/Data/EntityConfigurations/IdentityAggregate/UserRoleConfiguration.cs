@@ -11,11 +11,11 @@ public class UserRoleConfiguration : IEntityTypeConfiguration<UserRole>
         // User relation:
         var userNavigation = builder.Metadata.FindNavigation(nameof(UserRole.User));
         userNavigation?.SetPropertyAccessMode(PropertyAccessMode.Field);
-        
+
         builder.HasOne(p => p.User)
                .WithMany(p => p.UserRoles)
                .HasForeignKey(p => p.UserId);
-        
+
         // Role relation:
         var roleNavigation = builder.Metadata.FindNavigation(nameof(UserRole.User));
         roleNavigation?.SetPropertyAccessMode(PropertyAccessMode.Field);

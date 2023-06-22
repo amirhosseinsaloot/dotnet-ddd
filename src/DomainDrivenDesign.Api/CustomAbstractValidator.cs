@@ -9,13 +9,10 @@ public abstract class CustomAbstractValidator<TDto> : AbstractValidator<TDto>, I
     public ValidationResult AfterAspNetValidation(ActionContext actionContext, IValidationContext validationContext,
         ValidationResult result)
     {
-        if (result.IsValid is false)
-        {
-            throw new BadRequestException(ExceptionCode.Default,
-                result.Errors.ToString() ?? "Input has validation errors");
-        }
-
-        return result;
+        return result.IsValid is false
+            ? throw new BadRequestException(ExceptionCode.Default,
+                result.Errors.ToString() ?? "Input has validation errors")
+            : result;
     }
 
     public IValidationContext BeforeAspNetValidation(ActionContext actionContext, IValidationContext commonContext)

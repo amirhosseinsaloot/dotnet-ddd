@@ -1,5 +1,4 @@
 ﻿using System.Linq.Expressions;
-using DomainDrivenDesign.Domain.Entities.TeamAggregate;
 
 namespace DomainDrivenDesign.Domain.Interfaces.Specification;
 

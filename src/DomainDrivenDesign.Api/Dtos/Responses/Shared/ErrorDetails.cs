@@ -1,6 +1,4 @@
-﻿using System.Text.Json;
-
-namespace DomainDrivenDesign.Api.Dtos.Responses.Shared;
+﻿namespace DomainDrivenDesign.Api.Dtos.Responses.Shared;
 
 public class ErrorDetails
 {

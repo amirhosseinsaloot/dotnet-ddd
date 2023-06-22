@@ -46,7 +46,8 @@ public class GlobalExceptionHandlerMiddleware
 
         var serializeOptions = new JsonSerializerOptions
         {
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase, WriteIndented = true
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            WriteIndented = true
         };
         var jsonString =
             JsonSerializer.Serialize(new ApiResponse<ErrorDetails>(errorDetails, message), serializeOptions);

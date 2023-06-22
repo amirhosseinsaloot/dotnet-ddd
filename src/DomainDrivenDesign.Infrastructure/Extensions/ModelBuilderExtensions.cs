@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
-using Pluralize.NET;
+﻿using Pluralize.NET;
 
 namespace DomainDrivenDesign.Infrastructure.Extensions;
 
@@ -70,13 +69,13 @@ public static class ModelBuilderExtensions
     /// <param name="deleteBehavior">Intended DeleteBehavior enum.</param>
     public static void AddDeleteBehaviorConvention(this ModelBuilder modelBuilder, DeleteBehavior deleteBehavior)
     {
-        IEnumerable<IMutableForeignKey> cascadeFKs =
+        var cascadeFKs =
             modelBuilder
             .Model.GetEntityTypes()
             .SelectMany(p => p.GetForeignKeys())
             .Where(fk => !fk.IsOwnership && fk.DeleteBehavior == DeleteBehavior.Cascade);
 
-        foreach (IMutableForeignKey fk in cascadeFKs)
+        foreach (var fk in cascadeFKs)
         {
             fk.DeleteBehavior = deleteBehavior;
         }
