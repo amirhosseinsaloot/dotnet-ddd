@@ -3,7 +3,7 @@ using DomainDrivenDesign.Infrastructure.Data;
 using DomainDrivenDesign.Infrastructure.Data.Repository;
 using DomainDrivenDesign.Infrastructure.Setting;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 
 namespace DomainDrivenDesign.Api.Extensions;
 
